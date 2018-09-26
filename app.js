@@ -5,7 +5,8 @@ var pikeStore = {
     min: 23,
     max: 65, 
     avgCookieSale: 6.3,
-    numCookiesPerHourArray: []
+    numCookiesPerHourArray: [],
+    hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Daily Total']
 };
 
 pikeStore.calculateCustPerHour = function (){
@@ -19,7 +20,6 @@ pikeStore.calculateCustPerHour = function (){
 pikeStore.numCookiesSoldPerHour = function(){
     for(var i = 0; i < 15; i++){
         this.numCookiesPerHourArray.push(this.calculateCustPerHour());
-        // console.log(this.numCookiesPerHourArray[i]);
     }
 };
 
@@ -29,9 +29,6 @@ pikeStore.totalNumCookies = function(){
         var sumNumCookies = this.numCookiesPerHourArray.reduce(function(a,n) {
             return a + n;
         });
-        // function add(a, b){
-        //     return a + b;
-        // }
         this.numCookiesPerHourArray.push(sumNumCookies);
         console.log(sumNumCookies);
     };
@@ -48,10 +45,11 @@ pikeStore.renderHours = function(){
     
     var ulEl = document.createElement('ul');
 
-    for(var i = 0; i < this.numCookiesPerHourArray.length; i++){
+    for(var i = 0; i < this.hours.length; i++){
         var listItemEl = document.createElement('li');
-        listItemEl.textContent = this.numCookiesPerHourArray[i];
-        ulEl.appendChild(listItemEl);
+            listItemEl.textContent = this.hours[i] + ': ' + this.numCookiesPerHourArray[i];
+            ulEl.appendChild(listItemEl);
+        
     };
 
     storesContainer.appendChild(ulEl);
