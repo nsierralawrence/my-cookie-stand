@@ -120,34 +120,95 @@ var seattleCenterStore = new CookiesStore('Seattle Center', 11, 38, 3.7,);
 var capHillStore = new CookiesStore('Capitol Hill', 20, 38, 2.3);
 var alkiStore = new CookiesStore('Alki', 2, 16, 4.6);
 
-var addAllStoreArrayObjects = function(){
-pikeStore.cookiesArrayObject();
-seaTacStore.cookiesArrayObject();
-seattleCenterStore.cookiesArrayObject();
-capHillStore.cookiesArrayObject();
-alkiStore.cookiesArrayObject();
+var allCookiesStores = [];
+allCookiesStores.push(pikeStore, seaTacStore, seattleCenterStore, capHillStore, alkiStore);
+
+// var storeInfo = [];
+// storeInfo.push('Min Customers', 'Max Customers', 'Average Sold Per Customer');
+
+// var tableHeaders = storeInfo.concat(this.hours);
+
+// console.log(this.tableHeaders);
+// var addAllStoreArrayObjects = function(){
+// pikeStore.cookiesArrayObject();
+// seaTacStore.cookiesArrayObject();
+// seattleCenterStore.cookiesArrayObject();
+// capHillStore.cookiesArrayObject();
+// alkiStore.cookiesArrayObject();
+// };
+
+// var allStoresTotalNumCookiesSold = function(){
+//     pikeStore.totalNumCookies();
+//     seaTacStore.totalNumCookies();
+//     seattleCenterStore.totalNumCookies();
+//     capHillStore.totalNumCookies();
+//     alkiStore.totalNumCookies();
+// };
+
+// var renderAllCookiesStores = function(){
+//     pikeStore.renderHours();
+//     seaTacStore.renderHours();
+//     seattleCenterStore.renderHours();
+//     capHillStore.renderHours();
+//     alkiStore.renderHours();
+// };
+
+// addAllStoreArrayObjects();
+// allStoresTotalNumCookiesSold();
+// renderAllCookiesStores();
+
+CookiesStore.prototype.renderAsTableRow = function(){
+    this.cookiesArrayObject();
+    var cookiesTableEl = document.getElementById('cookies-table');
+
+    var trEl = document.createElement('tr');
+    
+    // var thEl = document.createElement('th');
+    // thEl.textContent = 'Store Info';
+    // trEl.appendChild(thEl);
+
+    // for(var i = 0; i < this.tableHeaders.length; i++){
+    //     var tdEl = document.createElement('td');
+    //     tdEl.textContent = this.tableHeaders[i];
+    //     trEl.appendChild(tdEl);
+    // };
+
+    trEl = document.createElement('tr');
+
+    var thEl = document.createElement('th');
+    thEl.textContent = this.name;
+    trEl.appendChild(thEl);
+
+    var tdEl = document.createElement('td');
+    tdEl.textContent = this.min;
+    trEl.appendChild(tdEl);
+
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.max;
+    trEl.appendChild(tdEl);
+
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.avgCookieSale;
+    trEl.appendChild(tdEl);
+
+    for(var i = 0; i < this.numCookiesPerHourArray.length; i++){
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.numCookiesPerHourArray[i];
+    trEl.appendChild(tdEl);
+    }
+
+    cookiesTableEl.appendChild(trEl);
 };
 
-var allStoresTotalNumCookiesSold = function(){
-    pikeStore.totalNumCookies();
-    seaTacStore.totalNumCookies();
-    seattleCenterStore.totalNumCookies();
-    capHillStore.totalNumCookies();
-    alkiStore.totalNumCookies();
+for(var i = 0; i < allCookiesStores.length; i++){
+    allCookiesStores[i].cookiesArrayObject();
+    allCookiesStores[i].totalNumCookies();
+    allCookiesStores[i].renderHours();
+    allCookiesStores[i].renderAsTableRow();
 };
 
-var renderAllCookiesStores = function(){
-    pikeStore.renderHours();
-    seaTacStore.renderHours();
-    seattleCenterStore.renderHours();
-    capHillStore.renderHours();
-    alkiStore.renderHours();
-};
+// allCookiesStores.renderAsTableRow();
 
-
-addAllStoreArrayObjects();
-allStoresTotalNumCookiesSold();
-renderAllCookiesStores();
 
 // var seaTacStore = {
 //     name: 'SeaTac Airport',
